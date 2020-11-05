@@ -93,9 +93,9 @@ class asdict(metaclass=MetaTransform):
     """
     pass
 
-class item(asdict):
+class generic(asdict):
     """
-    Generic item for those who do not want the metaclass to propagate like covid-19 does
+    Generic item for those who do not want the metaclass to propagate like covid-19
     """
     pass
 
