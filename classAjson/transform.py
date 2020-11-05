@@ -28,12 +28,15 @@ class MetaTransform(type):
         classDict['__len__'] = dict.__len__
         classDict['__getitem__'] = object.__getattribute__
         classDict['__setitem__'] = object.__setattr__
+        classDict['__str__'] = mcs.tostr
         classDict['lattributes'] = mcs.lattributes
         classDict['lvalues'] = mcs.lvalues
         classDict['update'] = mcs.update
-        classDict['tostr'] = mcs.tostr
         classDict['fromdict'] = mcs.fromdict
         classDict['pop'] = mcs.popitem
+        classDict['seq_update'] = mcs.seq_update
+        classDict['nonseq_update'] = mcs.nonseq_update
+
 
         return super().__new__(mcs, classname, bases, classDict)
 
@@ -45,19 +48,33 @@ class MetaTransform(type):
 
     #Make a wrapper to use sequential/non sequential updates, right now it will be on a 2D iterable Iterable[Iterable[_KT, _VT]]
     #sequpdate(seq: set, list, dict...), nonsequpdate(name, value) -> None
+
+    def seq_update(cls, iterable):
+        for tup in iterable:
+            cls.nonseq_update(tup)
+
+    def nonseq_update(cls, non_iterable):
+        return object.__setattr__(cls, non_iterable[0], non_iterable[1])
+
     def update(cls, iterable):
         """
         Update from a 2D sequence
         :param iterable:
         :return:
         """
-        for tup in iterable:
-            object.__setattr__(cls, tup[0], tup[1])
 
+        if type(iterable) == list:
+            cls.seq_update(iterable)
+        elif type(iterable) == dict:
+            cls.seq_update(iterable.items())
+        elif type(iterable) == tuple:
+            cls.nonseq_update(iterable)
+        else:
+            raise TypeError("Type given to update is wrong, only iterators are allowed.")
         return True
 
     def tostr(cls):
-        return dict.__str__(cls.__dict__)
+        return cls.__dict__.__str__()
 
     def fromdict(cls, seq):
         for key, value in seq.items():
