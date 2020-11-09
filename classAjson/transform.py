@@ -125,6 +125,6 @@ class generic(asdict):
     """
     pass
 
-__all__ = ['customObject', 'item']
+__all__ = ['generic', 'asdict']
 
 
