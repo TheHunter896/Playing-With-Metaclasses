@@ -1,0 +1,1 @@
+I guess some documentation would be nice, will do it later :yawn:
