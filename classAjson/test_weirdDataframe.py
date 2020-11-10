@@ -21,5 +21,12 @@ class testWeirdDataframe(unittest.TestCase):
 
         self.assertEqual([element for element in df], [df['0'], df['1']])
 
+    def test_cannotDefineNoList(self):
+        df = weirdDataframe()
+
+        try:
+            df[0] = [0]
+        except Exception as err:
+            self.assertEqual(isinstance(err, TypeError), True)
 
 
