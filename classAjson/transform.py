@@ -155,10 +155,10 @@ class MetaDataframe(type):
         return object.__getattribute__(cls, item)
 
     def __setitem__(cls, key, value): #Enable setting attributes as column names or list names, who cares let's do everything
-        if type(value) != list:
+        if not isinstance(value, list):
             raise TypeError("Column has to be a list class, or subclass.")
 
-        if type(key) == int:
+        if isinstance(key, int):
             key = str(key)
 
         return object.__setattr__(cls, key, value)
