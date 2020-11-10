@@ -164,7 +164,7 @@ class MetaDataframe(type):
         return object.__setattr__(cls, key, value)
 
     def __iter__(cls): #Return a tuple of values (lists) per attribute, can also define __next__ on next iterations (of the code, not the loop lol)
-                       # Curiously this does not work with ```return cls.lvalues()``` (which returns a list)
+                       # Curiously this does not work with ```return cls.lvalues()``` (which returns a list), it needs an iterator, why is a list not an iterator?
         return (cls.__getitem__(key) for key in cls.lattributes())
 
     def __repr__(cls):
