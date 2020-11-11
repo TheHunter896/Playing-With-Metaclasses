@@ -1,11 +1,11 @@
 import unittest
-from .transform import asdict
+from .as_dict import asdict
 
-class TestAsDictMethods(unittest.TestCase):
+class TestAsDict(unittest.TestCase):
 
     def test_lattributes(self):
         ctest = asdict()
-        
+
         self.assertEqual(ctest.lattributes(), list(ctest.__dict__.keys()))
 
         ctest['test_1'] = 0
@@ -39,6 +39,7 @@ class TestAsDictMethods(unittest.TestCase):
         or non sequential (adapted from dict)
         :return:
         """
+
         ctest = asdict()
 
         ctest['test_1'] = 0
@@ -77,15 +78,49 @@ class TestAsDictMethods(unittest.TestCase):
         self.assertEqual(str(ctest), '{}', msg=ctest.__dict__.__str__())
 
     # Planned content
-
     def test_fromdict(self):
-        pass
+        ctest = asdict()
+
+        test_dict = {
+            'test_1': 'hi',
+            'test_2': 2
+        }
+
+        ctest.fromdict(test_dict)
+
+        self.assertEqual(ctest.test_1, 'hi')
+        self.assertEqual(ctest.test_2, 2)
+
+    def get(self):
+        ctest = asdict()
+
+        ctest.test_1 = 0
+        ctest.test_2 = 0
+
+        self.assertEqual(ctest.get(test_1), 0)
+        self.assertEqual(ctest.get(test_2), 0)
 
     def test_popitem(self):
-        pass
+        ctest = asdict()
+
+        ctest.test_1 = 0
+        ctest.pop("test_1")
+
+        self.assertFalse(ctest.get("test_1"))
+
+    def test_items(self):
+        ctest = asdict()
+
+        ctest.test_1 = 0
+        ctest['test_2'] = 0
+
+        self.assertEqual(ctest.items(), {'test_1': 0, 'test_2': 0})
 
     def test_addDict(self):
-        pass
+        ctest = asdict()
+
+        ctest.test_1 = 0
+        ctest['test_1'] = 0
 
     def test_addClass(self):
         pass
