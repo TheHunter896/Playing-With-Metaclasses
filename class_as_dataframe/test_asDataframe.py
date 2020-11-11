@@ -1,7 +1,6 @@
 from .as_dataframe import asDataframe
 import unittest
-import collections
-import pandas as pd
+
 
 class testWeirdDataframe(unittest.TestCase):
 
