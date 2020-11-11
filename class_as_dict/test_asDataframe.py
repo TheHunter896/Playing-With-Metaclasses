@@ -1,11 +1,12 @@
-from .transform import weirdDataframe
+from .as_dataframe import asDataframe
 import unittest
 import collections
+import pandas as pd
 
 class testWeirdDataframe(unittest.TestCase):
 
     def test_canDefineAttributesWithIndex(self):
-        df = weirdDataframe()
+        df = asDataframe()
 
         df[0] = [0, 1, 2, 3]
         df[1] = [1, 234, 5, 5]
@@ -14,7 +15,7 @@ class testWeirdDataframe(unittest.TestCase):
         self.assertEqual(df['1'], [1, 234, 5, 5])
 
     def test_canLoopOverAttributes(self):
-        df = weirdDataframe()
+        df = asDataframe()
 
         df[0] = [0,1,2,3]
         df[1] = [1,234,5,5]
@@ -22,7 +23,8 @@ class testWeirdDataframe(unittest.TestCase):
         self.assertEqual([element for element in df], [df['0'], df['1']])
 
     def test_cannotDefineNoList(self):
-        df = weirdDataframe()
+
+        df = asDataframe()
 
         try:
             df[0] = [0]

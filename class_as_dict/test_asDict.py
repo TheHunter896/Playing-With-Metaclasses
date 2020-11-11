@@ -1,5 +1,5 @@
 import unittest
-from .transform import asdict
+from .as_dict import asdict
 
 class TestAsDict(unittest.TestCase):
 
